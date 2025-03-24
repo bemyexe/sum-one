@@ -1,10 +1,10 @@
-export const App = () => {
-  return (
-    <div>
-      <h1>App</h1>
-      <ul>
-        <li>Home</li>
-      </ul>
-    </div>
-  );
-};
+import {Outlet} from 'react-router';
+
+import {Header} from './components/header';
+
+export const App = () => (
+  <div>
+    <Header />
+    <Outlet />
+  </div>
+);
