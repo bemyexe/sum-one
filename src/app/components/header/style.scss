@@ -1,0 +1,13 @@
+.header {
+  padding: 20px;
+  background-color: rgb(245, 241, 189);
+  .navigation-list {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-size: 2rem;
+    .active {
+      color: royalblue;
+    }
+  }
+}

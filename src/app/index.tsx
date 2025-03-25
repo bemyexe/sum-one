@@ -2,9 +2,13 @@ import {Outlet} from 'react-router';
 
 import {Header} from './components/header';
 
-export const App = () => (
-  <div>
+import './style.scss';
+
+export const AppLayout = () => (
+  <div className="app">
     <Header />
-    <Outlet />
+    <div className="content">
+      <Outlet />
+    </div>
   </div>
 );

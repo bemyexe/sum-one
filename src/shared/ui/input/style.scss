@@ -1,0 +1,13 @@
+.input-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  .input {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 2px;
+  }
+  .error-text {
+    color: red;
+  }
+}

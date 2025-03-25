@@ -8,18 +8,18 @@ import {
   ProfilePage,
   RegistrationPage,
 } from './app/pages';
-import {App} from './app';
+import {AppLayout} from './app';
 
 import './styles/global.scss';
 
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
     <Routes>
-      <Route element={<App />}>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/registration" element={<RegistrationPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/" element={<AppLayout />}>
+        <Route index element={<MainPage />} />
+        <Route path="login" element={<LoginPage />} />
+        <Route path="registration" element={<RegistrationPage />} />
+        <Route path="profile" element={<ProfilePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
