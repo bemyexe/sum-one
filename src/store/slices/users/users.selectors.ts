@@ -2,7 +2,7 @@ import {createSelector} from '@reduxjs/toolkit';
 
 import {RootState} from '../../store';
 
-import {UsersState} from './users-slice';
+import {UsersState} from './users.slice';
 
 const selectUsersState: (state: RootState) => UsersState = (state) =>
   state.usersState;

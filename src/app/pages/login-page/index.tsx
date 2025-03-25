@@ -2,8 +2,8 @@ import {useEffect} from 'react';
 import {useSelector} from 'react-redux';
 
 import {useAppDispatch} from '../../../store';
-import {usersSelectors} from '../../../store/slices/users-slice/users.selectors';
-import {fetchUsers} from '../../../store/slices/users-slice/users.thunks';
+import {usersSelectors} from '../../../store/slices/users/users.selectors';
+import {fetchUsers} from '../../../store/slices/users/users.thunks';
 
 export const LoginPage = () => {
   const users = useSelector(usersSelectors.selectUsersStateUsers);

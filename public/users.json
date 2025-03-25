@@ -2,13 +2,13 @@
   {
     "id": 1,
     "name": "Maxim Trifonov",
-    "username": "Max99",
+    "login": "Max99",
     "password": "qwerty"
   },
   {
     "id": 2,
     "name": "Ivan Petrov",
-    "username": "Vanek",
+    "login": "Vanek",
     "password": "123456"
   }
 ]

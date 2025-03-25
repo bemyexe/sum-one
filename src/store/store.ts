@@ -1,11 +1,13 @@
 import {useDispatch} from 'react-redux';
 import {configureStore} from '@reduxjs/toolkit';
 
-import {usersReducer} from './slices/users-slice/users-slice';
+import {loginReducer} from './slices/login/login.slice';
+import {usersReducer} from './slices/users/users.slice';
 
 export const store = configureStore({
   reducer: {
     usersState: usersReducer,
+    loginState: loginReducer,
   },
 });
 

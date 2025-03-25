@@ -9,6 +9,7 @@ import {
   ProfilePage,
   RegistrationPage,
 } from './app/pages';
+import {ProtectedRoute} from './app/routes';
 import {AppLayout} from './app';
 import {store} from './store';
 
@@ -22,7 +23,14 @@ createRoot(document.getElementById('root')!).render(
           <Route index element={<MainPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="registration" element={<RegistrationPage />} />
-          <Route path="profile" element={<ProfilePage />} />
+          <Route
+            path="profile"
+            element={
+              <ProtectedRoute isAllowed={true} redirectPath="/login">
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

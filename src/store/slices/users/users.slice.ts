@@ -2,10 +2,10 @@ import {createSlice} from '@reduxjs/toolkit';
 
 import {fetchUsers} from './users.thunks';
 
-interface User {
+export interface User {
   id: string;
   name: string;
-  username: string;
+  login: string;
   password: string;
 }
 
@@ -17,7 +17,7 @@ export interface UsersState {
 
 const USERS_SLICE_NAME = 'users';
 
-const INITIAL_STATE: UsersState = {
+const INITIAL_USERS_STATE: UsersState = {
   users: [],
   status: 'idle',
   error: null,
@@ -25,7 +25,7 @@ const INITIAL_STATE: UsersState = {
 
 export const usersSlice = createSlice({
   name: USERS_SLICE_NAME,
-  initialState: INITIAL_STATE,
+  initialState: INITIAL_USERS_STATE,
   reducers: {},
   extraReducers: (builder) => {
     builder
