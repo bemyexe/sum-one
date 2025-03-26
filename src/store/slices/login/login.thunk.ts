@@ -9,13 +9,13 @@ export const login = createAppAsyncThunk(
     try {
       const response = await fetch('/users.json');
       const users: User[] = await response.json();
-      const user = users.find(
+      const user = users.filter(
         (user) =>
           user.login === loginData.login && user.password === loginData.password
       );
 
-      if (user) {
-        return 'true';
+      if (user && user.length > 0) {
+        return {id: user[0].id, token: 'true'};
       } else {
         throw new Error('Неверный логин или пароль');
       }

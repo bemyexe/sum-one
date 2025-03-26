@@ -17,7 +17,13 @@ const selectLoginStateError = createSelector(
   (state) => state.error
 );
 
+const selectLoginStateId = createSelector(
+  selectLoginState,
+  (state) => state.id
+);
+
 export const loginSelectors = {
   selectLoginStateStatus,
   selectLoginStateError,
+  selectLoginStateId,
 };

@@ -3,7 +3,6 @@ import {useSelector} from 'react-redux';
 import {useNavigate} from 'react-router';
 import {z} from 'zod';
 
-import StorageService from '../../../shared/lib/auth-storage.service';
 import {Button, Input} from '../../../shared/ui';
 import {useAppDispatch} from '../../../store';
 import {loginSelectors} from '../../../store/slices/login/login.selectors';
@@ -29,17 +28,17 @@ export const LoginPage = () => {
   const dispatch = useAppDispatch();
   const status = useSelector(loginSelectors.selectLoginStateStatus);
   const error = useSelector(loginSelectors.selectLoginStateError);
+  const id = useSelector(loginSelectors.selectLoginStateId);
   const navigate = useNavigate();
-  const token = StorageService.getToken();
   useEffect(() => {
     if (status === 'idle') {
       dispatch(fetchUsers());
     }
 
-    if (token) {
-      navigate('/profile');
+    if (status === 'succeeded') {
+      navigate('/profile/' + id);
     }
-  }, [status, dispatch, navigate, token]);
+  }, [status, dispatch, navigate, id]);
 
   const validate = () => {
     const res = formStateSchema.safeParse(userFormState);
@@ -58,8 +57,6 @@ export const LoginPage = () => {
     }
     dispatch(login(userFormState));
   };
-  console.log('status', status);
-  console.log('error', error);
 
   const errors = showErrors ? validate() : undefined;
   return (
@@ -77,7 +74,7 @@ export const LoginPage = () => {
           errors={errors?.login?._errors}
         />
         <Input
-          type="text"
+          type="password"
           title="Пароль"
           placeholder="Введите пароль"
           required

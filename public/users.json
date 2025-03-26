@@ -1,12 +1,12 @@
 [
   {
-    "id": 1,
+    "id": "1",
     "name": "Maxim Trifonov",
     "login": "Max99",
     "password": "qwerty"
   },
   {
-    "id": 2,
+    "id": "2",
     "name": "Ivan Petrov",
     "login": "Vanek",
     "password": "123456"
