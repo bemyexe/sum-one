@@ -22,8 +22,14 @@ const selectLoginStateId = createSelector(
   (state) => state.id
 );
 
+const selectLoginStateIsAuth = createSelector(
+  selectLoginState,
+  (state) => state.isAuth
+);
+
 export const loginSelectors = {
   selectLoginStateStatus,
   selectLoginStateError,
   selectLoginStateId,
+  selectLoginStateIsAuth,
 };

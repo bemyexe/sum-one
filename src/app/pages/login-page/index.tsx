@@ -9,6 +9,8 @@ import {loginSelectors} from '../../../store/slices/login/login.selectors';
 import {login} from '../../../store/slices/login/login.thunk';
 import {fetchUsers} from '../../../store/slices/users/users.thunks';
 
+import './style.scss';
+
 const INITIAL_FORM_STATE = {
   login: '',
   password: '',
@@ -26,6 +28,7 @@ export const LoginPage = () => {
   const [showErrors, setShowErrors] = useState(false);
   const userFormState = {...INITIAL_FORM_STATE, ...formState};
   const dispatch = useAppDispatch();
+  const isAuth = useSelector(loginSelectors.selectLoginStateIsAuth);
   const status = useSelector(loginSelectors.selectLoginStateStatus);
   const error = useSelector(loginSelectors.selectLoginStateError);
   const id = useSelector(loginSelectors.selectLoginStateId);
@@ -35,10 +38,10 @@ export const LoginPage = () => {
       dispatch(fetchUsers());
     }
 
-    if (status === 'succeeded') {
+    if (isAuth) {
       navigate('/profile/' + id);
     }
-  }, [status, dispatch, navigate, id]);
+  }, [status, dispatch, navigate, id, isAuth]);
 
   const validate = () => {
     const res = formStateSchema.safeParse(userFormState);
@@ -89,7 +92,7 @@ export const LoginPage = () => {
         </Button>
       </form>
 
-      {!!error && <p style={{color: 'red', marginTop: '10px'}}>{error}</p>}
+      {!!error && <p className="error">{error}</p>}
     </div>
   );
 };

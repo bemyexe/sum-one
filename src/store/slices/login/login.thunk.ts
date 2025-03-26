@@ -11,7 +11,10 @@ export const login = createAppAsyncThunk(
       const users: User[] = await response.json();
       const user = users.filter(
         (user) =>
-          user.login === loginData.login && user.password === loginData.password
+          user.login.toLocaleLowerCase() ===
+            loginData.login.toLocaleLowerCase() &&
+          user.password.toLocaleLowerCase() ===
+            loginData.password.toLocaleLowerCase()
       );
 
       if (user && user.length > 0) {

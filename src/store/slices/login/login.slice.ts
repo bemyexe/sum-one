@@ -10,12 +10,14 @@ export interface LoginState {
   id: string | null;
   status: 'idle' | 'pending' | 'succeeded' | 'failed';
   error: string | null;
+  isAuth: boolean;
 }
 
 const INITIAL_LOGIN_STATE: LoginState = {
   id: null,
   status: 'idle',
   error: null,
+  isAuth: !!StorageService.getToken(),
 };
 
 export const loginSlice = createSlice({
@@ -32,6 +34,7 @@ export const loginSlice = createSlice({
         state.status = 'succeeded';
         state.id = payload.id;
         state.error = null;
+        state.isAuth = true;
         StorageService.setToken(payload.token);
         StorageService.setUserId(payload.id);
       })
@@ -41,7 +44,11 @@ export const loginSlice = createSlice({
       })
       .addCase(logout, () => {
         StorageService.clearToken();
-        return INITIAL_LOGIN_STATE;
+        StorageService.clearUserId();
+        return {
+          ...INITIAL_LOGIN_STATE,
+          isAuth: false,
+        };
       });
   },
 });
