@@ -3,13 +3,14 @@ import {ComponentProps, ReactNode} from 'react';
 import './style.scss';
 
 interface ButtonProps extends ComponentProps<'button'> {
+  type: 'button' | 'submit' | 'reset';
   loading: boolean;
   children?: ReactNode;
 }
 
-export const Button = ({loading, children, ...props}: ButtonProps) => {
+export const Button = ({type, loading, children, ...props}: ButtonProps) => {
   return (
-    <button {...props} className="button">
+    <button type={type} {...props} className="button">
       {loading ? 'loading' : children}
     </button>
   );

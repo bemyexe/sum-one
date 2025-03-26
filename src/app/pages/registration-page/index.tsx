@@ -1,13 +1,7 @@
-import {ChangeEvent, useEffect, useState} from 'react';
-import {useSelector} from 'react-redux';
+import {ChangeEvent, useState} from 'react';
 import {z} from 'zod';
 
 import {Button, Input} from '../../../shared/ui';
-import {useAppDispatch} from '../../../store';
-import {loginSelectors} from '../../../store/slices/login/login.selectors';
-import {login} from '../../../store/slices/login/login.thunk';
-import {usersSelectors} from '../../../store/slices/users/users.selectors';
-import {fetchUsers} from '../../../store/slices/users/users.thunks';
 
 const INITIAL_FORM_STATE = {
   name: '',
@@ -33,17 +27,8 @@ type FormState = z.infer<typeof formStateSchema>;
 export const RegistrationPage = () => {
   const [formState, setFormState] = useState<Partial<FormState>>({});
   const [showErrors, setShowErrors] = useState(false);
-  const dispatch = useAppDispatch();
-  const users = useSelector(usersSelectors.selectUsersStateUsers);
-  const status = useSelector(loginSelectors.selectLoginStateStatus);
-  const error = useSelector(loginSelectors.selectLoginStateError);
-  const userFormState = {...INITIAL_FORM_STATE, ...formState};
 
-  useEffect(() => {
-    if (status === 'idle') {
-      dispatch(fetchUsers());
-    }
-  }, [status, dispatch]);
+  const userFormState = {...INITIAL_FORM_STATE, ...formState};
 
   const validate = () => {
     const res = formStateSchema.safeParse(userFormState);
@@ -60,16 +45,8 @@ export const RegistrationPage = () => {
       setShowErrors(true);
       return;
     }
-    dispatch(
-      login({
-        users,
-        loginData: userFormState,
-      })
-    );
   };
   console.log('userFormState', userFormState);
-  console.log('status', status);
-  console.log('error', error);
   const errors = showErrors ? validate() : undefined;
 
   return (
@@ -86,7 +63,6 @@ export const RegistrationPage = () => {
           }
           errors={errors?.name?._errors}
         />
-        <span>{}</span>
         <Input
           type="text"
           title="Логин"
@@ -121,7 +97,9 @@ export const RegistrationPage = () => {
           }
           errors={errors?.mathPassword?._errors}
         />
-        <Button loading={false}>Submit</Button>
+        <Button type="submit" loading={false}>
+          Submit
+        </Button>
       </form>
     </div>
   );

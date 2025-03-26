@@ -5,24 +5,26 @@ import {User} from '../users/users.slice';
 
 export const login = createAppAsyncThunk(
   'login/loginUser',
-  async (
-    {
-      users,
-      loginData,
-    }: {
-      users: User[];
-      loginData: {login: string; password: string};
-    },
-    {rejectWithValue}
-  ) => {
-    const user = users.find(
-      (user) =>
-        user.login === loginData.login && user.password === loginData.password
-    );
-    if (user) {
-      return 'true';
-    } else {
-      return rejectWithValue('Неправильный логин или пароль');
+  async (loginData: {login: string; password: string}, {rejectWithValue}) => {
+    try {
+      const response = await fetch('/users.json');
+      const users: User[] = await response.json();
+      const user = users.find(
+        (user) =>
+          user.login === loginData.login && user.password === loginData.password
+      );
+
+      if (user) {
+        return 'true';
+      } else {
+        throw new Error('Неверный логин или пароль');
+      }
+    } catch (error) {
+      let errorMessage = '';
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      return rejectWithValue(errorMessage);
     }
   }
 );

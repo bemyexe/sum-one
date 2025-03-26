@@ -24,14 +24,16 @@ export const loginSlice = createSlice({
     builder
       .addCase(login.pending, (state) => {
         state.status = 'pending';
+        state.error = null;
       })
       .addCase(login.fulfilled, (state, {payload}) => {
         state.status = 'succeeded';
+        state.error = null;
         StorageService.setToken(payload);
       })
-      .addCase(login.rejected, (state, {error}) => {
+      .addCase(login.rejected, (state, {payload}) => {
         state.status = 'failed';
-        state.error = error.message ?? 'Something went wrong';
+        state.error = payload ?? 'Something went wrong';
       })
       .addCase(logout, () => {
         StorageService.clearToken();
